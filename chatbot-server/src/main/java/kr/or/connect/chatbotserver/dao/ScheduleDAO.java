@@ -16,13 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScheduleDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
-
 	@SuppressWarnings("unchecked")
 	public List<Schedule> getAllSchedules(Schedule schedule){
 		String hql = ScheduleSqls.SELECT_ALL;
 		return (List<Schedule>) entityManager.createQuery(hql).setParameter("userKeys", schedule.getUserKey()).getResultList();
 	}
-	
+
 	public void insertSchedule(Schedule schedule){
 		entityManager.persist(schedule);
 	}

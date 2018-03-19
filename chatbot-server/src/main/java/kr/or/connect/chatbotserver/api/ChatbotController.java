@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ChatbotController {
     @Autowired
     ScheduleService ScheduleService;
-
     @Autowired
     PhoneNumberOfUniversityService phoneNumberOfUniversityService;
     @Autowired
@@ -69,6 +68,11 @@ public class ChatbotController {
         // 메시지 구현
 
         String user_key = (String)resObj.get("user_key");
+        if(!userService.AddUser(user_key))
+            System.out.println("\n-------------user Add Fail---------------\n");
+
+
+
 
         // User Key 값을 이용하여 user의 Depth를 추적
         // 30~50  분실물
@@ -162,7 +166,7 @@ public class ChatbotController {
             String url = "http://52.78.164.183:9090/user/schedules/start/" + user.getConvertId();
             jsonMB.put("url",url);
             jobjText.put("text","\"일정관리\"를하기 위해 해당 URL에서\n" +
-                    "하실수 있습니다.(굿)\n");
+                    "하실수 있습니다.(굿)\n"+url);
             jobjText.put("message_button",jsonMB);
             jobjRes.put("message", jobjText);
 
